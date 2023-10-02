@@ -1,0 +1,220 @@
+﻿1)
+A)
+int main()
+    {
+        int arr[3] = { 5, 10, 15 };
+        int* ptr = arr;
+
+
+        *ptr = 10;      // set arr[0] to 10
+        ptr++;  
+        *ptr = 20;    // set arr[1] to 20
+        ptr += 2;
+        ptr[-1] = 30;        // set arr[2] to 30
+
+
+        while (ptr > arr)
+        {
+            ptr--;
+            cout << *ptr << endl;    // print values
+        }
+    }
+
+
+
+
+
+
+B)
+ void findMax(int arr[], int n, int* &pToMax)
+    {
+        if (n <= 0) 
+            return;      // no items, no maximum!
+    
+       *pToMax = arr;
+
+
+        for (int i = 1; i < n; i++)
+        {
+            if (arr[i] > *pToMax)
+                 *pToMax = arr + i;
+        }
+    }       
+
+
+This function was previously incorrect because it was passed by value instead of being passed by reference. The main function was printing out a value unchanged by the function findMax since all of the changes were happening to a copy of int* pToMax
+
+
+
+
+
+
+
+
+C)
+   void computeCube(int n, int* ncubed)
+    {
+        *ncubed = n * n * n;
+    }
+
+
+    int main()
+    {
+        int* ptr;
+        int x;
+        ptr = &x
+        computeCube(5, ptr);
+        cout << "Five cubed is " << *ptr << endl;
+    }
+The Function previously didn’t work because the pointer ptr was uninitialized and didn’t have anywhere to point. After creating a variable for it to point to, it works.
+
+
+D)
+bool strequal(const char str1[], const char str2[])
+    {
+        while (*str1 != ‘\0’  &&  *str2 != ‘\0’)  // zero bytes at ends
+        {
+            if (*str1 == *str2){  // compare corresponding characters
+                str1++;            // advance to the next character
+                str2++;
+            }
+            else
+                return false;
+        }
+        return *str1 == *str2;   // both ended at same time?
+    }
+
+
+Using pointer(*) to dereference the arrays since arrays are already passed by reference. Thus by using the pointers, we can compare the actual values in the array.
+
+
+
+
+E)
+The problem is that the main function is trying to access the function the array, anArray even though it was locally declared within the function and thus cannot be accessed by the main function.
+
+
+
+
+
+
+2)
+double* cat;
+double mouse[5];
+cat = &mouse[4];
+*cat = 25;
+*(mouse + 3 )= 54;
+Cat -= 3;
+cat[2] = 42;
+cat[1] = 17;
+Bool d = (*cat == mouse[0]);
+Bool b = (*cat == *(cat + 1));
+
+
+
+
+
+
+3)
+A)
+double mean(const double* scores, int numScores)
+    {
+        Int counter = 0;
+        const double* ptr = scores;
+        double tot = 0;
+        while (counter != numScores)
+        {
+            tot += *(scores + counter);
+            counter++;
+        }
+        return tot/numScores;
+    }
+
+
+
+
+
+
+B)
+const char* findTheChar(char* str, char chr)
+    {
+        for (int k = 0; *(str + k) != ‘\0’; k++){
+            if (*(str + k) == chr)
+                return *(str + k);
+}
+        return nullptr;
+    }
+
+
+
+
+
+
+
+
+C)
+const char* findTheChar(char* str, char chr)
+    {
+        while( *(str) != ‘\0’){
+            if (*str == chr)
+                return str;
+        else
+            str++;
+}
+        return nullptr;
+    }
+
+
+
+
+4)
+Final Array: int array[6] = { 4, 79, -1, 9, 22, 19 };
+
+
+
+
+
+
+First, the function maxwell returns the position of the larger value in the array which is at index 0 and stores the address in a ptr. It then sets the value at the address ptr(index 0) to -1, and then adds two to the address ptr. Then, index one of the ptr is set to 9, and since the ptr was already at index 2, that means it sets index 3 to the value 9. Then the function sets index 1 to the value 79. Main then outputs the address of the array at index 5 minus ptr which is currently equal to the address of the array at index 2. Thus, main outputs 3. The function swap1 swaps the address of the two inputs thus any of the values swapped in the functions have no effect on the output since they were only swapped locally. The function swap2 is passed in values by reference and they swap the values at index 0 and 2 thus affecting the output.(swapping 4 and -1). Then, the for loop at the end prints out each value of the array followed by an endline. The values of the array printed out are listed above and I explained how these values were achieved in the paragraph.
+
+Output:
+3
+4
+79
+-1
+9
+22
+19
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5) 
+void removeS(char* msgPtr){
+    
+    while(*msgPtr != '\0'){
+        
+        if (*msgPtr == 's' || *msgPtr == 'S'){
+            char* tempPtr = msgPtr;
+            for(;;){
+                *msgPtr = *(msgPtr+1);
+                msgPtr++;
+                if (*msgPtr == '\0'){
+                    break;}
+            }
+            msgPtr = tempPtr;
+        }
+        else
+            msgPtr++;
+    }
+    }
